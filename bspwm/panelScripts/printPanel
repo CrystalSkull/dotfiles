@@ -1,0 +1,58 @@
+#! /bin/sh
+#
+# Example panel for LemonBoy's bar
+
+. panel_colors
+
+while read -r line ; do
+	case $line in
+		S*)
+			clock="fg(gray)${line#?}"
+			;;
+		T*)
+			# xtitle output
+			title="^fg(gray)${line#?}"
+			;;
+		N*)
+			#now playing
+			nowPlaying="^fg(gray)${line#?}"
+		W*)
+			# bspwm internal state
+			wm_infos=""
+			IFS=':'
+			set -- ${line#?}
+			while [ $# -gt 0 ] ; do
+				item=$1
+				name=${item#?}
+				case $item in
+					O*)
+						# focused occupied desktop
+						wm_infos="$wm_infos ^fg(white) ^r(10x10)"
+						;;
+					F*)
+						# focused free desktop
+						wm_infos="$wm_infos ^fg(red)^ro(10x10)"
+						;;
+					U*)
+						# focused urgent desktop
+						wm_infos="$wm_infos ^fg(red)^r(10x10)"
+						;;
+					o*)
+						# occupied desktop
+						wm_infos="$wm_infos ^fg(white)^ro(10x10)"
+						;;
+					f*)
+						# free desktop
+						wm_infos="$wm_infos ^fg(gray)^ro(10x10)"
+						;;
+					u*)
+						# urgent desktop
+						wm_infos="$wm_infos ^fg(red)^ro(10x10)"
+						;;
+				esac
+				shift
+			done
+			;;
+	esac
+	echo "^p(_LEFT)$wm_infos ^p(_CENTER) $nowPlaying ^p() $clock"
+done

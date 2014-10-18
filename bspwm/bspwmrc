@@ -1,0 +1,27 @@
+#! /bin/sh
+
+#bspc monitor DVI-1 -d main code steam
+#bspc monitor DVI-0 -d sub skype spotify torrent
+bspc monitor DFP4 -d main code steam
+bspc monitor DFP3 -d sub skype music torrent
+
+bspc config border_width	5        
+bspc config focused_border_color Firebrick
+
+#bspc config -m DVI-0 top_padding 15
+bspc config -m DFP3 top_padding 15
+bspc config window_gap          5
+bspc config split_ratio         0.52
+bspc config borderless_monocle  true
+bspc config gapless_monocle     true
+
+bspc rule -a Skype desktop=skype #follow=on
+bspc rule -a Steam desktop=steam #follow=on
+bspc rule -a Spotify desktop=music follow=on
+bspc rule -a Transmission-gtk desktop=torrent #follow=on
+bspc rule -a Codeblocks desktop=code 
+bspc rule -a Eclipse desktop=code
+#this is for the eclipse splash screen
+bspc rule -a java desktop=code
+
+panel &
