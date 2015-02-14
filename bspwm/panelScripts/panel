@@ -1,5 +1,40 @@
 #! /bin/sh
 
+music() {
+	music_identifier="M"
+	while true
+	do
+		# check if mopidy is started
+		if [ -n "$(ps -u simon | grep mopidy)" ]
+		then
+			for i in $(mpc --format "") 
+			do
+				stat=$i
+				# we only care about the first thing in the output, if it's playing or not
+				break
+			done
+			
+			if [ $stat = "[playing]" ]
+			then
+				echo "$music_identifier$(mpc current)"
+			else
+				# supposedly some funky pause visual
+				echo "$music_identifier||"
+			fi
+			mpc idle > /dev/null
+		#if mopidy isn't started, we can chill for 10 sec
+		else
+			echo "${music_identifier}Mopidy not started"
+			sleep 10
+		fi
+	done
+}
+
+PANEL_HEIGHT=15
+PANEL_FIFO=/tmp/panel-fifo
+PANEL_FIFO2=/tmp/panel-fifo2
+FONT=xft:inconsolata:size=10
+
 if [ $(pgrep -cx panel) -gt 1 ] ; then
 	printf "%s\n" "The panel is already running." >&2
 	exit 1
@@ -7,29 +42,25 @@ fi
 
 trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 
-flavor=${1:-bar}
-
 [ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
 mkfifo "$PANEL_FIFO"
-
-bspc config top_padding $PANEL_HEIGHT
+[ -e "$PANEL_FIFO2" ] && rm "$PANEL_FIFO2"
+mkfifo "$PANEL_FIFO2"
 
 bspc control --subscribe > "$PANEL_FIFO" &
-xtitle -sf 'T%s' > "$PANEL_FIFO" &
-clock -sf 'S%a %H:%M %d-%m-%y' > "$PANEL_FIFO" &
+#xtitle -sf 'T%s' > "$PANEL_FIFO" &
+clock -sf 'S%H:%M %d-%m-%y' > "$PANEL_FIFO" &
+music > "$PANEL_FIFO" &
+bspc control --subscribe > "$PANEL_FIFO2" &
+#xtitle -sf 'T%s' > "$PANEL_FIFO" &
+clock -sf 'S%H:%M %d-%m-%y' > "$PANEL_FIFO2" &
+music > "$PANEL_FIFO2" &
 
 . panel_colors
 
-case "$flavor" in
-	bar)
-		cat "$PANEL_FIFO" | panel_bar | bar -g 1440x15+1920+0 -F "$COLOR_FOREGROUND" -B "$COLOR_BACKGROUND" &
-
-		;;
-	dzen2)
-		FONT_FAMILY='DejaVu Sans'
-		FONT_SIZE=11
-		cat "$PANEL_FIFO" | panel_dzen2 -f "$FONT_FAMILY" -s "$FONT_SIZE" | dzen2 -h $PANEL_HEIGHT -dock -ta l -title-name panel -fn "${FONT_FAMILY}:pixelsize=${FONT_SIZE}" -fg "$COLOR_FOREGROUND" -bg "$COLOR_BACKGROUND" &
-		;;
-esac
+# right screen
+cat "$PANEL_FIFO" | panel_bar DVI-1 | bar-aint-recursive -g 1920x$PANEL_HEIGHT -F "$FG" -B "$BG" -f $FONT &
+# left screen
+cat "$PANEL_FIFO2" | panel_bar DVI-0 | bar-aint-recursive -g x$PANEL_HEIGHT+1920 -F "$FG" -B "$BG" -f $FONT &
 
 wait
