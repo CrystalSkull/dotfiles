@@ -53,6 +53,6 @@ music > "$PANEL_FIFO" &
 . panel_colors
 
 # right screen
-cat "$PANEL_FIFO" | panel_bar DVI-1 | bar-aint-recursive -F "$FG" -B "$BG" -f $FONT &
+cat "$PANEL_FIFO" | panel_bar DVI-1 | bar-aint-recursive -g x15 -F "$FG" -B "$BG" -f $FONT &
 
 wait
