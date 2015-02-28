@@ -1,12 +1,12 @@
 #! /bin/sh
 #
-# Example panel for LemonBoy's bar
-
+# Example panel for LemonBoy's bar 
 . panel_colors
 
 num_mon=$(bspc query -M | wc -l)
 
-wanted_screen=$1
+big="DVI-1"
+small="DVI-0"
 
 while read -r line ; do
 	case $line in
@@ -24,69 +24,71 @@ while read -r line ; do
 			;;
 		W*)
 			# bspwm internal state
-			wm_infos=""
+			bigInfo=""
+			smallInfo=""
 			IFS=':'
 			set -- ${line#?}
 			while [ $# -gt 0 ] ; do
 				item=$1
-				name=${item#?}
 				case $item in
  					M*)
-						if [ "$name" != "$wanted_screen" ]
-						then
-							skip=true
-						else
-							skip=false
-						fi
- 						;;
+						name=${item#?}
+						;;
  					m*)
-						if [ "$name" != "$wanted_screen" ]
-						then
-							skip=true
-						else
-							skip=false
-						fi
- 						;;
+						name=${item#?}
+						;;
 					O*)
-						if [ "$skip" = false ]
+						if [ "$name" == "$big" ]
 						then
 							# focused occupied desktop
-							wm_infos="${wm_infos}%{F$FG_ACTIVE} ● %{F-}"
+							bigInfo="${bigInfo}%{F$FG_ACTIVE} ● %{F-}"
+						else
+							smallInfo="${smallInfo}%{F$FG_ACTIVE} ● %{F-}"
 						fi
 						;;
 					F*)
-						if [ "$skip" = false ]
+						if [ "$name" == "$big" ]
 						then
 							# focused free desktop
-							wm_infos="${wm_infos}%{F$FG_ACTIVE} ● %{F-}"
+							bigInfo="${bigInfo}%{F$FG_ACTIVE} ● %{F-}"
+						else
+							smallInfo="${smallInfo}%{F$FG_ACTIVE} ● %{F-}"
 						fi
 						;;
 					U*)
-						if [ "$skip" = false ]
+						if [ "$name" == "$big" ]
 						then
 							# focused urgent desktop
-							wm_infos="${wm_infos}%{F$FG_ACTIVE} ● %{F-}"
+							bigInfo="${bigInfo}%{F$FG_ACTIVE} ● %{F-}"
+						else
+							smallInfo="${smallInfo}%{F$FG_ACTIVE} ● %{F-}"
 						fi
 						;;
 					o*)
-						if [ "$skip" = false ]
+						if [ "$name" == "$big" ]
 						then
 							# occupied desktop
-							wm_infos="${wm_infos} ●"
+							bigInfo="${bigInfo} ●"
+						else
+							smallInfo="${smallInfo} ●"
 						fi
 						;;
 					f*)
-						if [ "$skip" = false ]
+						if [ "$name" == "$big" ]
 						then
 							# free desktop	
-							wm_infos="${wm_infos} ●"
+							bigInfo="${bigInfo} ●"
+						else
+							smallInfo="${smallInfo} ●"
 						fi
 						;;
 					u*)	
-						if [ "$skip" = false ]
+						if [ "$name" == "$big" ]
 						then
 							# urgent desktop
-							wm_infos="${wm_infos}%{F$FG_URGENT} ● %{F-}"
+							bigInfo="${bigInfo}%{F$FG_URGENT} ● %{F-}"
+						else
+							smallInfo="${smallInfo}%{F$FG_URGENT} ● %{F-}"
 						fi
 						;;
 # 					L*)
@@ -98,6 +100,6 @@ while read -r line ; do
 			done
 			;;
 	esac
-	printf "%s\n" "%{l}${music_info}%{c}${wm_infos}%{r}${sys_infos}"
-	#printf "%s\n" "%{l}${wm_infos}%{c}${title}%{r}${sys_infos}"
+	printf "%s" "%{l}${music_info}%{c}${bigInfo}%{r}${sys_infos}"
+	printf "%s\n" "%{S+}%{l}${music_info}%{c}${smallInfo}%{r}${sys_infos}"
 done

@@ -44,23 +44,15 @@ trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 
 [ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
 mkfifo "$PANEL_FIFO"
-[ -e "$PANEL_FIFO2" ] && rm "$PANEL_FIFO2"
-mkfifo "$PANEL_FIFO2"
 
 bspc control --subscribe > "$PANEL_FIFO" &
 #xtitle -sf 'T%s' > "$PANEL_FIFO" &
 clock -sf 'S%H:%M %d-%m-%y' > "$PANEL_FIFO" &
 music > "$PANEL_FIFO" &
-bspc control --subscribe > "$PANEL_FIFO2" &
-#xtitle -sf 'T%s' > "$PANEL_FIFO" &
-clock -sf 'S%H:%M %d-%m-%y' > "$PANEL_FIFO2" &
-music > "$PANEL_FIFO2" &
 
 . panel_colors
 
 # right screen
-cat "$PANEL_FIFO" | panel_bar DVI-1 | bar-aint-recursive -g 1920x$PANEL_HEIGHT -F "$FG" -B "$BG" -f $FONT &
-# left screen
-cat "$PANEL_FIFO2" | panel_bar DVI-0 | bar-aint-recursive -g x$PANEL_HEIGHT+1920 -F "$FG" -B "$BG" -f $FONT &
+cat "$PANEL_FIFO" | panel_bar DVI-1 | bar-aint-recursive -F "$FG" -B "$BG" -f $FONT &
 
 wait
