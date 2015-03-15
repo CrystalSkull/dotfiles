@@ -41,27 +41,27 @@ while read -r line ; do
 						if [ "$name" == "$big" ]
 						then
 							# focused occupied desktop
-							bigInfo="${bigInfo}%{F$FG_ACTIVE} ● %{F-}"
+							bigInfo="${bigInfo}%{F$FG_ACTIVE} ●%{F-}"
 						else
-							smallInfo="${smallInfo}%{F$FG_ACTIVE} ● %{F-}"
+							smallInfo="${smallInfo}%{F$FG_ACTIVE} ●%{F-}"
 						fi
 						;;
 					F*)
 						if [ "$name" == "$big" ]
 						then
 							# focused free desktop
-							bigInfo="${bigInfo}%{F$FG_ACTIVE} ● %{F-}"
+							bigInfo="${bigInfo}%{F$FG_ACTIVE} ●%{F-}"
 						else
-							smallInfo="${smallInfo}%{F$FG_ACTIVE} ● %{F-}"
+							smallInfo="${smallInfo}%{F$FG_ACTIVE} ●%{F-}"
 						fi
 						;;
 					U*)
 						if [ "$name" == "$big" ]
 						then
 							# focused urgent desktop
-							bigInfo="${bigInfo}%{F$FG_ACTIVE} ● %{F-}"
+							bigInfo="${bigInfo}%{F$FG_ACTIVE} ●%{F-}"
 						else
-							smallInfo="${smallInfo}%{F$FG_ACTIVE} ● %{F-}"
+							smallInfo="${smallInfo}%{F$FG_ACTIVE} ●%{F-}"
 						fi
 						;;
 					o*)
@@ -86,9 +86,9 @@ while read -r line ; do
 						if [ "$name" == "$big" ]
 						then
 							# urgent desktop
-							bigInfo="${bigInfo}%{F$FG_URGENT} ● %{F-}"
+							bigInfo="${bigInfo}%{F$FG_URGENT} ●%{F-}"
 						else
-							smallInfo="${smallInfo}%{F$FG_URGENT} ● %{F-}"
+							smallInfo="${smallInfo}%{F$FG_URGENT} ●%{F-}"
 						fi
 						;;
 # 					L*)
