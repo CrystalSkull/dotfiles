@@ -32,7 +32,6 @@ music() {
 
 PANEL_HEIGHT=15
 PANEL_FIFO=/tmp/panel-fifo
-PANEL_FIFO2=/tmp/panel-fifo2
 FONT=xft:inconsolata:size=10
 
 if [ $(pgrep -cx panel) -gt 1 ] ; then
@@ -52,7 +51,9 @@ music > "$PANEL_FIFO" &
 
 . panel_colors
 
+#set the other screen that we're interested in
+other=$(xrandr --query | gawk '{if (/*/) {print screen};screen=$1}' | tail -1)
 # right screen
-cat "$PANEL_FIFO" | panel_bar DVI-1 | bar-aint-recursive -g x15 -F "$FG" -B "$BG" -f $FONT &
+cat "$PANEL_FIFO" | panel_bar $other | bar-aint-recursive -g x15 -F "$FG" -B "$BG" -f $FONT &
 
 wait

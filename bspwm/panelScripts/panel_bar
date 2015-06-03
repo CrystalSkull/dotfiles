@@ -5,8 +5,9 @@
 
 num_mon=$(bspc query -M | wc -l)
 
-big="DVI-1"
-small="DVI-0"
+big="DVI-0"
+other=$1
+#the other screen is set in the panel file
 
 while read -r line ; do
 	case $line in
@@ -25,7 +26,7 @@ while read -r line ; do
 		W*)
 			# bspwm internal state
 			bigInfo=""
-			smallInfo=""
+			otherInfo=""
 			IFS=':'
 			set -- ${line#?}
 			while [ $# -gt 0 ] ; do
@@ -42,8 +43,9 @@ while read -r line ; do
 						then
 							# focused occupied desktop
 							bigInfo="${bigInfo}%{F$FG_ACTIVE} ●%{F-}"
-						else
-							smallInfo="${smallInfo}%{F$FG_ACTIVE} ●%{F-}"
+						elif [ "$name" == "$other" ]
+						then
+							otherInfo="${otherInfo}%{F$FG_ACTIVE} ●%{F-}"
 						fi
 						;;
 					F*)
@@ -51,8 +53,9 @@ while read -r line ; do
 						then
 							# focused free desktop
 							bigInfo="${bigInfo}%{F$FG_ACTIVE} ●%{F-}"
-						else
-							smallInfo="${smallInfo}%{F$FG_ACTIVE} ●%{F-}"
+						elif [ "$name" == "$other" ]
+						then
+							otherInfo="${otherInfo}%{F$FG_ACTIVE} ●%{F-}"
 						fi
 						;;
 					U*)
@@ -60,8 +63,9 @@ while read -r line ; do
 						then
 							# focused urgent desktop
 							bigInfo="${bigInfo}%{F$FG_ACTIVE} ●%{F-}"
-						else
-							smallInfo="${smallInfo}%{F$FG_ACTIVE} ●%{F-}"
+						elif [ "$name" == "$other" ]
+						then
+							otherInfo="${otherInfo}%{F$FG_ACTIVE} ●%{F-}"
 						fi
 						;;
 					o*)
@@ -69,8 +73,9 @@ while read -r line ; do
 						then
 							# occupied desktop
 							bigInfo="${bigInfo} ●"
-						else
-							smallInfo="${smallInfo} ●"
+						elif [ "$name" == "$other" ]
+						then
+							otherInfo="${otherInfo} ●"
 						fi
 						;;
 					f*)
@@ -78,8 +83,9 @@ while read -r line ; do
 						then
 							# free desktop	
 							bigInfo="${bigInfo} ●"
-						else
-							smallInfo="${smallInfo} ●"
+						elif [ "$name" == "$other" ]
+						then
+							otherInfo="${otherInfo} ●"
 						fi
 						;;
 					u*)	
@@ -87,8 +93,9 @@ while read -r line ; do
 						then
 							# urgent desktop
 							bigInfo="${bigInfo}%{F$FG_URGENT} ●%{F-}"
-						else
-							smallInfo="${smallInfo}%{F$FG_URGENT} ●%{F-}"
+						elif [ "$name" == "$other" ]
+						then
+							otherInfo="${otherInfo}%{F$FG_URGENT} ●%{F-}"
 						fi
 						;;
 # 					L*)
@@ -101,5 +108,5 @@ while read -r line ; do
 			;;
 	esac
 	printf "%s" "%{l}${music_info}%{c}${bigInfo}%{r}${sys_infos}"
-	printf "%s\n" "%{S+}%{l}${music_info}%{c}${smallInfo}%{r}${sys_infos}"
+	printf "%s\n" "%{S+}%{l}${music_info}%{c}${otherInfo}%{r}${sys_infos}"
 done

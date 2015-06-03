@@ -1,5 +1,5 @@
 URxvt.scrollBar: false
-URxvt.font: xft:inconsolata:size=10
+URxvt.font: xft:inconsolata:size=11
 
 ! special
 *.foreground:   #c5c8c6
@@ -37,4 +37,3 @@ URxvt.font: xft:inconsolata:size=10
 ! white
 *.color7:       #c5c8c6
 *.color15:      #ffffff
-
