@@ -1,5 +1,6 @@
 URxvt.scrollBar: false
 URxvt.font: xft:inconsolata:size=11
+URxvt.letterSpace: -1
 
 ! special
 *.foreground:   #c5c8c6
