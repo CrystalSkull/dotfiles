@@ -1,3 +1,5 @@
+bindkey -M vicmd 'K' run-help
+
 #so we can use ^S and ^Q in rtorrent andn the like
 stty stop undef
 stty start undef
@@ -23,7 +25,8 @@ export LSCOLORS="Gxfxcxdxbxegedabagacad"
 setopt prompt_subst
  
 # prompt
-  
+prompt_color="cyan"
+
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[green]%}["
 ZSH_THEME_GIT_PROMPT_SUFFIX="]%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}*%{$reset_color%}"
@@ -55,7 +58,7 @@ rbenv_version_status() {
 	[ "$(rbenv global)" != "$ver" ] && echo "[$ver]"
 }
 
-PROMPT="%{$fg[red]%}%d %{$reset_color%}"
+PROMPT="%{$fg[$prompt_color]%}%d %{$reset_color%}"
 
 #for indicating if normal and showing git status
 function zle-line-init zle-keymap-select {
@@ -71,4 +74,15 @@ function zle-line-init zle-keymap-select {
 
 zle -N zle-line-init
 zle -N zle-keymap-select
+
 export KEYTIMEOUT=1
+# If not running interactively, do not do anything
+[[ $- != *i* ]] && return
+
+#[[ -z "$TMUX" ]] && exec tmx base
+#[[ -z "$TMUX" ]] && exec $(tmux attach -t base || tmux new -s base)
+# TMUX
+#if which tmux >/dev/null 2>&1; then
+     #if not inside a tmux session, and if no session is started, start a new session
+	 #test -z "$TMUX" && (tmux attach -t base || tmux new-session -s base)
+#fi
