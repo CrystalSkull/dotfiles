@@ -78,11 +78,3 @@ zle -N zle-keymap-select
 export KEYTIMEOUT=1
 # If not running interactively, do not do anything
 [[ $- != *i* ]] && return
-
-#[[ -z "$TMUX" ]] && exec tmx base
-#[[ -z "$TMUX" ]] && exec $(tmux attach -t base || tmux new -s base)
-# TMUX
-#if which tmux >/dev/null 2>&1; then
-     #if not inside a tmux session, and if no session is started, start a new session
-	 #test -z "$TMUX" && (tmux attach -t base || tmux new-session -s base)
-#fi
