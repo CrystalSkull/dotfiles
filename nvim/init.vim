@@ -16,6 +16,7 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'delimitMate.vim'
 
 NeoBundle 'Shougo/deoplete.nvim'
+let g:deoplete#enable_at_startup = 1
 
 NeoBundle 'ervandew/supertab'
 
@@ -30,15 +31,18 @@ filetype plugin indent on
 NeoBundleCheck
 "End NeoBundle Scripts-------------------------
 
+syntax on
+
 set relativenumber
 set number
 set smartindent
 
 set expandtab
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set smarttab
 
-syntax on
+set tags+=./.tags
 
-let g:deoplete#enable_at_startup = 1
+" Use ESC to remove highlight from search
+nnoremap <silent> <Esc> :nohlsearch<Bar>:echo<CR>
