@@ -27,6 +27,11 @@ while read -r line ; do
 			# bspwm internal state
 			bigInfo=""
 			otherInfo=""
+      tmp=( $line )
+      action=${tmp[0]}
+      monitor=${tmp[1]}
+      desktop=${tmp[2]}
+      #state=${temp[3]} eg. monocle, tiled
 			IFS=':'
 			set -- ${line#?}
 			while [ $# -gt 0 ] ; do

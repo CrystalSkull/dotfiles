@@ -1,34 +1,4 @@
-#! /bin/sh
-
-music() {
-	music_identifier="M"
-	while true
-	do
-		# check if mopidy is started
-		if [ -n "$(ps -u simon | grep mopidy)" ]
-		then
-			for i in $(mpc --format "") 
-			do
-				stat=$i
-				# we only care about the first thing in the output, if it's playing or not
-				break
-			done
-			
-			if [ $stat = "[playing]" ]
-			then
-				echo "$music_identifier$(mpc current)"
-			else
-				# supposedly some funky pause visual
-				echo "$music_identifier||"
-			fi
-			mpc idle > /dev/null
-		#if mopidy isn't started, we can chill for 10 sec
-		else
-			echo "${music_identifier}Mopidy not started"
-			sleep 10
-		fi
-	done
-}
+#! /bin/bash
 
 PANEL_HEIGHT=15
 PANEL_FIFO=/tmp/panel-fifo
@@ -44,10 +14,10 @@ trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 [ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
 mkfifo "$PANEL_FIFO"
 
-bspc control --subscribe > "$PANEL_FIFO" &
+bspc subscribe all > "$PANEL_FIFO" &
 #xtitle -sf 'T%s' > "$PANEL_FIFO" &
 clock -sf 'S%H:%M %d-%m-%y' > "$PANEL_FIFO" &
-music > "$PANEL_FIFO" &
+#music > "$PANEL_FIFO" &
 
 . panel_colors
 
@@ -55,5 +25,9 @@ music > "$PANEL_FIFO" &
 other=$(xrandr --query | gawk '{if (/*/) {print screen};screen=$1}' | tail -1)
 # right screen
 cat "$PANEL_FIFO" | panel_bar $other | lemonbar -g x15 -F "$FG" -B "$BG" -f $FONT &
+
+sleep 1
+wids=`xdo id -a bar`
+`xdo lower ${wids}`
 
 wait
