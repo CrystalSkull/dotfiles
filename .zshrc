@@ -1,3 +1,5 @@
+alias ls='ls --color=auto'
+
 bindkey -M vicmd 'K' run-help
 
 #so we can use ^S and ^Q in rtorrent andn the like
@@ -76,5 +78,15 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 
 export KEYTIMEOUT=1
+
+play() {
+  playlist=$1
+  if [ -z $playlist ]
+  then
+    playlist="playlist"
+  fi
+  mpv --save-position-on-quit --playlist $playlist
+
+}
 # If not running interactively, do not do anything
 [[ $- != *i* ]] && return
