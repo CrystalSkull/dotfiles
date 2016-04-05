@@ -1,4 +1,6 @@
 alias ls='ls --color=auto'
+alias ssh='TERM=rxvt;ssh'
+alias android-studio='wmname LG3D;android-studio'
 
 bindkey -M vicmd 'K' run-help
 
