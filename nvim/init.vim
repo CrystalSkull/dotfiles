@@ -13,7 +13,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'scrooloose/nerdtree'
 " automaticly close paranthesis and so on
-NeoBundle 'delimitMate.vim'
+NeoBundle 'jiangmiao/auto-pairs'
 
 NeoBundle 'Shougo/deoplete.nvim'
 let g:deoplete#enable_at_startup = 1
@@ -41,6 +41,8 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 set smarttab
+
+set colorcolumn=101
 
 set tags+=./.tags
 
