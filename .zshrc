@@ -3,6 +3,7 @@ alias ssh='TERM=rxvt;ssh'
 alias android-studio='wmname LG3D;android-studio'
 
 bindkey -M vicmd 'K' run-help
+bindkey "" history-incremental-search-backward
 
 #so we can use ^S and ^Q in rtorrent andn the like
 stty stop undef

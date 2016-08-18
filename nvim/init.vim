@@ -20,6 +20,14 @@ let g:deoplete#enable_at_startup = 1
 
 NeoBundle 'ervandew/supertab'
 
+NeoBundle 'junegunn/fzf', {
+      \ 'directory' : 'fzf',
+      \ 'name' : 'fzf',
+      \ 'regular_name' : 'fzf',
+      \ }
+
+map <c-p> :FZF<cr>
+
 " Required:
 call neobundle#end()
 
