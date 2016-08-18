@@ -7,11 +7,11 @@ super + Return
 	urxvt
 
 super + shift + Return
-  urxvt -n floating_terminal
+  urxvt -name floating_terminal
 
 # program launcher
 super + space
-	dmenu_run
+	dmenu_run -fn inconsolata:size=10 -nb \#000000 -nf \#ababab
 
 # make sxhkd reload its configuration files:
 super + Escape
