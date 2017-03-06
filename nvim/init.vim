@@ -30,13 +30,11 @@ NeoBundle 'junegunn/fzf', {
       \ 'regular_name' : 'fzf',
       \ }
 map <c-p> :FZF<cr>
+" use ag to ignore .gitignore files
 let $FZF_DEFAULT_COMMAND='ag -g ""'
 
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'plasticboy/vim-markdown'
-
-NeoBundle 'vimwiki/vimwiki'
-let g:vimwiki_list = [{'path': '~/.notes/vim-wiki', 'syntax': 'markdown', 'ext': '.md'}]
 
 NeoBundle 'rhysd/vim-clang-format'
 let g:clang_format#style_options = {"Standard" : "C++11"}
@@ -88,4 +86,4 @@ set undodir=$HOME/.config/nvim/undo
 set undofile
 
 " Use ESC to remove highlight from search
-nnoremap <silent> <Esc> :nohlsearch<Bar>:echo<CR>
+nnoremap <silent> <Esc> :nohlsearch<CR>:echo<CR>
