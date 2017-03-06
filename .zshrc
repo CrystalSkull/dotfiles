@@ -1,9 +1,15 @@
 alias ls='ls --color=auto'
 alias ssh='TERM=rxvt;ssh'
-alias android-studio='wmname LG3D;android-studio'
 
-bindkey -M vicmd 'K' run-help
-bindkey "" history-incremental-search-backward
+function ranger {
+    tempfile="$(mktemp -t tmp.XXXXXX)"
+    /usr/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
+    test -f "$tempfile" &&
+    if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
+        cd -- "$(cat "$tempfile")"
+    fi
+    rm -f -- "$tempfile"
+}
 
 #so we can use ^S and ^Q in rtorrent andn the like
 stty stop undef
@@ -91,5 +97,9 @@ play() {
   mpv --save-position-on-quit --playlist $playlist
 
 }
+
+bindkey -M vicmd 'K' run-help
+bindkey '^R' history-incremental-search-backward
+
 # If not running interactively, do not do anything
 [[ $- != *i* ]] && return
