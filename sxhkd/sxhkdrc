@@ -9,17 +9,42 @@ super + Return
 super + shift + Return
   urxvt -name floating_terminal
 
+super + Home
+  dm-tool lock
+
 # program launcher
 super + space
-	dmenu_run -fn inconsolata:size=10 -nb \#000000 -nf \#ababab
+	dmenu_run -fn SourceCodePro:size=9 -nb \#000000 -nf \#ababab
 
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
 super + a
-	firefox
-XF86HomePage
-  systemctl suspend
+	qutebrowser -r default --backend webengine
+
+XF86AudioMute
+  amixer set Master toggle
+
+XF86AudioLowerVolume
+  amixer set Master 5%-
+
+XF86AudioRaiseVolume
+  amixer set Master 5%+
+
+XF86KbdBrightnessDown
+  kb-light.py -
+
+XF86KbdBrightnessUp
+  kb-light.py +
+
+XF86MonBrightnessDown
+  xbacklight -dec 10%
+
+XF86MonBrightnessUp
+  xbacklight -inc 10%
+
+XF86TouchpadToggle
+  toggle-touchpad.sh 
 
 #
 # bspwm hotkeys

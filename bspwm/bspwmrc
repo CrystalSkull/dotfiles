@@ -1,27 +1,25 @@
 #! /bin/sh
 
-COLOR_BORDER="gray"
-COLOR_FOCUSED_BORDER="black"
+sxhkd &
+panel &
+
+COLOR_BORDER="#000000"
+COLOR_FOCUSED_BORDER="#dd0000"
 PANEL_SIZE=15
-PADDING=10
+PADDING=0
 
-bspc monitor DVI-0 -d I II III
-bspc monitor DVI-1 -d IV V VI VII
+bspc monitor -d I II III IV V VI
 
-bspc config -m DVI-1 border_width	2   
-bspc config -m DVI-0 border_width	2   
-bspc config -m HDMI-0 border_width	2
+bspc config border_width	1
 bspc config focused_border_color $COLOR_FOCUSED_BORDER
 bspc config normal_border_color $COLOR_BORDER
 bspc config active_border_color $COLOR_BORDER
 
-bspc config top_padding 		$PANEL_SIZE
-bspc config -m DVI-1 window_gap $PADDING
-bspc config -m DVI-0 window_gap $PADDING
-bspc config -m HDMI-0 window-gap $PADDING
+bspc config top_padding $PANEL_SIZE
+bspc config window_gap  $PADDING
 
-bspc config split_ratio         0.50
-bspc config borderless_monocle  false
+bspc config split_ratio         0.60
+bspc config borderless_monocle  true
 bspc config gapless_monocle     true
 
 bspc rule --add java desktop=III follow=off
