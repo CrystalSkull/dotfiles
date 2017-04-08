@@ -43,9 +43,12 @@ let g:clang_format#style_options = {"Standard" : "C++11"}
 
 NeoBundle 'neomake/neomake'
 " cpp compiler and arguments for neomake
+let g:neomake_c_enable_markers=['gcc']
+let g:neomake_c_gcc_args=['-ansi', '-pedantic', '-Wall', '-Wextra']
 let g:neomake_cpp_enable_markers=['clang']
 let g:neomake_cpp_clang_args = ["-std=c++14", "-Wextra", "-Wall", "-Wpedantic"]
 let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_javascript_eslint_args= ['--fix']
 " run neomake on every buffer write
 autocmd! BufWritePost * Neomake
 
@@ -85,5 +88,16 @@ set tags+=./.tags
 set undodir=$HOME/.config/nvim/undo
 set undofile
 
+" Only show color column when past 80 characters
+" https://www.youtube.com/watch?v=aHm36-na4-4
+highlight ColorColumn ctermbg=magenta
+call matchadd('ColorColumn', '\%81v', 100)
+
 " Use ESC to remove highlight from search
 nnoremap <silent> <Esc> :nohlsearch<CR>:echo<CR>
+
+
+" execute prettier (js formatter) on filewrite for javascript files
+autocmd FileType javascript,javascript.jsx set formatprg=prettier\ --single-quote\ --stdin
+" webpack only notices file changes with this setting
+autocmd FileType javascript,javascript.jsx set backupcopy=yes
