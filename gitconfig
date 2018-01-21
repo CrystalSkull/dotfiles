@@ -1,0 +1,17 @@
+[user]
+	email = simon.kindstrom@gmail.com
+	name = Simon Kindström
+[merge]
+	tool = vimdiff
+[alias]
+	co = checkout
+	cob = checkout -b
+	ca = commit -a
+	caam = commit -a --amend
+	c = commit
+	cam = commit --amend
+	s = status
+	a = add
+	aa = add -A
+  b = branch
+  bd = branch -d
