@@ -16,7 +16,7 @@ call neobundle#begin(expand('/home/simon/.config/nvim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'scrooloose/nerdtree'
-" automaticly close paranthesis and so on
+" automatically close parentheses and so on
 NeoBundle 'jiangmiao/auto-pairs'
 
 NeoBundle 'Shougo/deoplete.nvim'
@@ -30,8 +30,7 @@ NeoBundle 'junegunn/fzf', {
       \ 'regular_name' : 'fzf',
       \ }
 map <c-p> :FZF<cr>
-" use ag to ignore .gitignore files
-let $FZF_DEFAULT_COMMAND='ag -g ""'
+let $FZF_DEFAULT_COMMAND='rg --files'
 
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'plasticboy/vim-markdown'
@@ -56,8 +55,33 @@ autocmd! BufWritePost * Neomake
 " Default keybind <leader>b
 NeoBundle 'jeetsukumaran/vim-buffergator'
 
+NeoBundle 'christoomey/vim-tmux-navigator'
+
+NeoBundle 'vim-airline/vim-airline'
+NeoBundle 'edkolev/tmuxline.vim'
+let g:airline_powerline_fonts = 1
+
+NeoBundle 'lervag/vimtex'
+
+" Javascript
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'mxw/vim-jsx'
+NeoBundleLazy 'flowtype/vim-flow', {
+            \ 'autoload': {
+            \     'filetypes': 'javascript'
+            \ }}
+NeoBundle 'carlitux/deoplete-ternjs', { 'build': { 'mac': 'npm install -g tern', 'unix': 'npm install -g tern' }}
+
+"Use locally installed flow
+let local_flow = finddir('node_modules', '.;') . '/.bin/flow'
+if matchstr(local_flow, "^\/\\w") == ''
+    let local_flow= getcwd() . "/" . local_flow
+endif
+if executable(local_flow)
+  let g:flow#flowpath = local_flow
+endif
+
+
 " Required:
 call neobundle#end()
 
@@ -88,16 +112,18 @@ set tags+=./.tags
 set undodir=$HOME/.config/nvim/undo
 set undofile
 
-" Only show color column when past 80 characters
-" https://www.youtube.com/watch?v=aHm36-na4-4
-highlight ColorColumn ctermbg=magenta
-call matchadd('ColorColumn', '\%81v', 100)
-
 " Use ESC to remove highlight from search
 nnoremap <silent> <Esc> :nohlsearch<CR>:echo<CR>
 
-
-" execute prettier (js formatter) on filewrite for javascript files
-autocmd FileType javascript,javascript.jsx set formatprg=prettier\ --single-quote\ --stdin
 " webpack only notices file changes with this setting
 autocmd FileType javascript,javascript.jsx set backupcopy=yes
+
+" Remove trailing spaces on save
+autocmd BufWritePre * :%s/\s\+$//e
+
+let g:tex_flavor = "latex"
+autocmd FileType tex nnoremap <buffer> j gj
+autocmd FileType tex nnoremap <buffer> k gk
+autocmd FileType tex setlocal spell
+autocmd BufRead COMMIT_EDITMSG setlocal spell
+autocmd BufNewFile,BufRead *.md,*.tex set spell spelllang=en_us

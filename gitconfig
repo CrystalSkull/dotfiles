@@ -15,3 +15,5 @@
 	aa = add -A
   b = branch
   bd = branch -d
+  l = log
+  d = diff
