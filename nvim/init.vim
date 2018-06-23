@@ -9,6 +9,9 @@ Plug 'junegunn/fzf.vim'
 " Auto complete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
+" TAB completion
+Plug 'ervandew/supertab'
+
 " Linting
 Plug 'w0rp/ale'
 
@@ -37,14 +40,12 @@ colorscheme spacegray
 
 " Enable auto complete at startup
 let g:deoplete#enable_at_startup = 1
-" TAB auto complete
-inoremap <silent><expr> <Tab>
-    \ pumvisible() ? "\<C-n>" : deoplete#manual_complete()
 
 " Show types of JS auto complete suggestions
 let g:deoplete#sources#ternjs#types = 1
 
 let g:ale_fix_on_save = 1
+map <leader>d :ALEDetail<cr>
 
 " Fuzzy find
 map <c-p> :FZF<CR>
@@ -57,3 +58,7 @@ set expandtab
 
 " Hide search highlight on espace
 nnoremap <ESC> :noh<CR>
+
+" Better searching
+set ignorecase
+set smartcase
