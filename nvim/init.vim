@@ -20,6 +20,9 @@ Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'jiangmiao/auto-pairs'
 
+" git change status in gutter
+Plug 'airblade/vim-gitgutter'
+
 " color scheme
 Plug 'ajh17/Spacegray.vim'
 
