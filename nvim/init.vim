@@ -34,6 +34,7 @@ Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 " switch between headers and source files
 Plug 'vim-scripts/a.vim'
 
+
 call plug#end()
 
 " color scheme
@@ -52,6 +53,7 @@ map <leader>d :ALEDetail<cr>
 
 " Fuzzy find
 map <c-p> :FZF<CR>
+let $FZF_DEFAULT_COMMAND = 'rg --files'
 
 " Tab as 2 spaces
 set tabstop=2
