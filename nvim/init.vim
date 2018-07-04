@@ -71,3 +71,7 @@ set smartcase
 " Save undos
 set undodir=$HOME/.config/nvim/undo
 set undofile
+
+" Line number
+set relativenumber
+set number
