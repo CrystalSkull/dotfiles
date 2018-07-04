@@ -67,3 +67,7 @@ nnoremap <ESC> :noh<CR>
 " Better searching
 set ignorecase
 set smartcase
+
+" Save undos
+set undodir=$HOME/.config/nvim/undo
+set undofile
