@@ -21,6 +21,8 @@
 # allow icmp
 -A INPUT -p icmp -j ACCEPT
 -A OUTPUT -p icmp -j ACCEPT
+-A INPUT -p icmpv6 -j ACCEPT
+-A OUTPUT -p icmpv6 -j ACCEPT
 
 -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
