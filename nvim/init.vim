@@ -46,7 +46,8 @@ let g:deoplete#enable_at_startup = 1
 
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
 let g:deoplete#sources#clang#clang_header = '/usr/lib/clang/'
-let g:deoplete#sources#clang#clang_complete_database = 'build/compile_commands.json'
+" let's do without this one for now, apparently slow
+"let g:deoplete#sources#clang#clang_complete_database = 'build/compile_commands.json'
 
 " Show types of JS auto complete suggestions
 let g:deoplete#sources#ternjs#types = 1
