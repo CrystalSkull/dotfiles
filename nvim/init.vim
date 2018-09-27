@@ -8,6 +8,7 @@ Plug 'junegunn/fzf.vim'
 
 " Auto complete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-clang'
 
 " TAB completion
 Plug 'ervandew/supertab'
@@ -25,6 +26,7 @@ Plug 'ajh17/Spacegray.vim'
 
 " javascript
 Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 
 " c++
@@ -42,11 +44,19 @@ colorscheme spacegray
 " Enable auto complete at startup
 let g:deoplete#enable_at_startup = 1
 
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+let g:deoplete#sources#clang#clang_header = '/usr/lib/clang/'
+let g:deoplete#sources#clang#clang_complete_database = 'build/compile_commands.json'
+
 " Show types of JS auto complete suggestions
 let g:deoplete#sources#ternjs#types = 1
 
 let g:ale_fix_on_save = 1
 map <leader>d :ALEDetail<cr>
+
+" javascript
+let g:javascript_plugin_flow = 1
+let g:javascript_plugin_jsdoc = 1
 
 " Fuzzy find
 map <c-p> :FZF<CR>
