@@ -8,7 +8,7 @@ fi
 PROMPT="%~ $ "
 
 bindkey -v
-bindkey '^R' history-incremental-search-backward
+# bindkey '^R' history-incremental-search-backward
 
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000000
@@ -18,3 +18,7 @@ setopt SHARE_HISTORY             # Share history between all sessions.
 
 # Env setup
 export FZF_DEFAULT_COMMAND='rg --files'
+# Use alt-c for fzf cd, ctrl-t for copy into, ctrl-r for fzf history search
+source /usr/share/fzf/key-bindings.zsh
+# Use e.g. make build/** to get fuzzy find on the path. It's the ** that's important
+source /usr/share/fzf/completion.zsh
