@@ -1,0 +1,20 @@
+[[ -f ~/.zshrc ]] && . ~/.zshrc
+
+if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
+  exec startx
+fi
+
+# zsh setup
+PROMPT="%~ $ "
+
+bindkey -v
+bindkey '^R' history-incremental-search-backward
+
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000000
+SAVEHIST=10000000
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+
+# Env setup
+export FZF_DEFAULT_COMMAND='rg --files'
