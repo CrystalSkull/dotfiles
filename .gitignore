@@ -2,3 +2,5 @@ nvim/fzf
 nvim/plugged/
 nvim/undo
 nvim/.netrwhist
+vim/vimdir/plugged
+vim/vimdir/undo
